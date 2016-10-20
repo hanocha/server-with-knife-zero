@@ -23,7 +23,7 @@ $ vagrant up knife
 ## 3. knife zero bootstrapping
 
 ```
-$ bundle exec knife zero bootstrap vagrant@192.168.33.101 --ssh-identity-file .vagrant\machines\knife\virtualbox\private_key
+$ bundle exec knife zero bootstrap vagrant@192.168.33.101 --ssh-identity-file .vagrant/machines/knife/virtualbox/private_key
 ```
 
 on windows,
