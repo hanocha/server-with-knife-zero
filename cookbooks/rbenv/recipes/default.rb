@@ -14,12 +14,23 @@ git '/usr/local/rbenv' do
   revision 'master'
 end
 
-script 'init and install rbenv' do
+directory '/usr/local/rbenv/shims' do
+  mode '0755'
+  action :create
+end
+
+directory '/usr/local/rbenv/versions' do
+  mode '0755'
+  action :create
+end
+
+script 'init rbenv' do
   interpreter 'bash'
-  code <<-EOS
-echo 'export PATH="/usr/local/rbenv/bin:$PATH"' >> /etc/profile.d/rbenv.sh
-/usr/local/rbenv/bin/rbenv init
-echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh
-EOS
-  not_if %Q{ls '/etc/profile.d/rbenv.sh'}
+  code '/usr/local/rbenv/bin/rbenv init'
+  returns 1
+end
+
+template '/etc/profile.d/rbenv.sh' do
+  source 'rbenv.sh'
+  mode '644'
 end
